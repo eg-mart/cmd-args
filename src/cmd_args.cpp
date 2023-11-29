@@ -1,8 +1,8 @@
 #include <string.h>
 #include <assert.h>
+#include <stdio.h>
 
 #include "cmd_args.h"
-#include "logger.h"
 
 enum ArgError process_args(const struct ArgDef arg_defs[], size_t arg_defs_size, 
 						   const char *argv[], int argc, void *processed_args)
