@@ -15,6 +15,10 @@ enum ArgError process_args(const struct ArgDef arg_defs[], size_t arg_defs_size,
 	size_t count_required = 0;
 	while (i < argc) {
 		if (argv[i][0] == '-' && argv[i][1] == '-') {
+			if (strcmp(argv[i] + 2, "help") == 0) {
+				arg_show_usage(arg_defs, arg_defs_size, argv[0]);
+				return ARG_HELP_CALLED;
+			}
 			for (size_t def_ind = 0; def_ind < arg_defs_size; def_ind++) {
 				if (!arg_defs[def_ind].long_name)
 					continue;
@@ -37,10 +41,6 @@ enum ArgError process_args(const struct ArgDef arg_defs[], size_t arg_defs_size,
 
 					break;
 				}
-			}
-			if (strcmp(argv[i] + 2, "help") == 0) {
-				arg_show_usage(arg_defs, arg_defs_size, argv[0]);
-				return ARG_HELP_CALLED;
 			}
 		} else if (argv[i][0] == '-') {
 			const char *short_name = argv[i] + 1;
